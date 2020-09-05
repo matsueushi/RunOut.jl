@@ -18,11 +18,11 @@ end
 @with_kw struct Community
     data_quality::String = ""
     want::UInt = 0
-    rating
+    rating = nothing
     status::String = ""
     have::UInt = 0
-    contributors::Vector{Contributor} = Contributor[]
-    submitter::Union{Contributor, Nothing} = nothing
+    contributors = nothing
+    submitter = nothing
 end
 
 
@@ -88,25 +88,27 @@ end
 
 
 @with_kw struct Release
-    id::Union{UInt, Nothing} = nothing
-    title::Union{String, Nothing} = nothing
-    artists::Vector{Artist} = Artist[]
+    id::UInt = 0
+    title::String = ""
+    resource_url::String = ""
+
+    artists::Union{Vector{Artist}, Nothing} = nothing
     artists_sort::Union{String, Nothing} = nothing
     data_quality::Union{String, Nothing} = nothing
     thumb::Union{String, Nothing} = nothing
-    community = nothing
-    companies::Vector{Company} = Company[]
+    community::Union{Community, Nothing} = nothing
+    companies::Union{Vector{Company}, Nothing} = nothing
     country::Union{String, Nothing} = nothing
     date_added::Union{ZonedDateTime, Nothing} = nothing
     date_changed::Union{ZonedDateTime, Nothing} = nothing
     estimated_weight::Union{UInt, Nothing} = nothing
-    extraartists::Vector{Artist} = Artist[]
+    extraartists::Union{Vector{Artist}, Nothing} = nothing
     format_quantity::Union{Int64, Nothing} = nothing
-    formats::Vector{Format} = Format[]
+    formats::Union{Vector{Format}, Nothing} = nothing
     genres::Union{Vector{String}, Nothing} = nothing
-    identifiers::Vector{Identifier} = Identifier[]
-    images::Vector{Image} = Image[]
-    labels::Vector{Label} = Label[]
+    identifiers::Union{Vector{Identifier}, Nothing} = nothing
+    images::Union{Vector{Image}, Nothing} = nothing
+    labels::Union{Vector{Label}, Nothing} = nothing
     lowest_price::Union{Real, Nothing} = nothing
     master_id::Union{UInt, Nothing} = nothing
     master_url::Union{String, Nothing} = nothing
@@ -114,12 +116,11 @@ end
     num_for_sale::Union{UInt, Nothing} = nothing
     released::Union{String, Nothing} = nothing
     released_formatted::Union{String, Nothing} = nothing
-    resource_url::Union{String, Nothing} = nothing
     series::Union{Vector{String}, Nothing} = nothing 
     status::Union{String, Nothing} = nothing
     styles::Union{Vector{String}, Nothing} = nothing
-    tracklist::Vector{Track} = Track[]
+    tracklist::Union{Vector{Track}} = nothing
     uri::Union{String, Nothing} = nothing
-    videos::Vector{Video} = Video[]
+    videos::Union{Vector{Video}, Nothing} = nothing
     year::Union{UInt, Nothing} = nothing
 end
