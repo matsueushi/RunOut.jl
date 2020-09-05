@@ -1,0 +1,11 @@
+name = "RunOut"
+uuid = "03328d24-db5d-422f-afe8-b99de72c82b3"
+authors = ["matsueushi <matsueushi@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+HTTP = "cd3eb016-35fb-5094-929b-558a96fad6f3"
+JSON = "682c06a0-de6a-54ab-a142-c8b1cf79cde6"
+Parameters = "d96e819e-fc66-5662-9728-84c9c7592b0a"
+Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+TimeZones = "f269a46b-ccf7-5d73-abea-4c690281aa53"
