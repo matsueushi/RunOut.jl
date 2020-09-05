@@ -1,12 +1,29 @@
-key_to_symbol(d) = Dict(Symbol(k) => v for (k, v) in pairs(d) if v != "")
+const DATETIME_FORMAT = "yyyy-mm-ddTHH:MM:SSzzzz"
 
-construct(cls, d) = cls(;key_to_symbol(d)...)
+key_to_symbol(d::AbstractDict) = Dict(Symbol(k) => v for (k, v) in pairs(d) if v != "")
 
-function parse_json(j)
-    release_json = key_to_symbol(j)
+construct_from_dict(T::Type, d) = T(;key_to_symbol(d)...)
+construct(T::Type, d::AbstractVector) = construct_from_dict.(T, d)
+
+function parse_dict_helper(T::Type, d::AbstractDict, 
+                           mapping::AbstractDict, timefields::AbstractVector)
+    d_args = key_to_symbol(d)
+    for (k, T) in pairs(mapping)
+        haskey(d_args, k) || continue
+        d_args[k] = construct(T, d_args[k])
+    end
+    for k in timefields
+        haskey(d_args, k) || continue
+        d_args[k] = ZonedDateTime(d_args[k], DATETIME_FORMAT)
+    end
+    return T(;d_args...)
+end
+
+function parse_dict(Release, d::AbstractDict)
     mapping = Dict(
         :artists => Artist,
         :companies => Company,
+        :contributors => Contributor,
         :extraartists => Artist,
         :formats => Format,
         :identifiers => Identifier,
@@ -15,16 +32,6 @@ function parse_json(j)
         :tracklist => Track,
         :videos => Video,
     )
-    for (k, v) in pairs(mapping)
-        haskey(release_json, k) || continue
-        release_json[k] = construct.(v, release_json[k])
-    end
     timefields = [:date_added, :date_changed]
-    for k in timefields
-        haskey(release_json, k) || continue
-        release_json[k] = ZonedDateTime(release_json[k], "yyyy-mm-ddTHH:MM:SSzzzz")
-    end
-    Release(;release_json...)
+    return parse_dict_helper(Release, d, mapping, timefields)
 end
-
-

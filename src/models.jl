@@ -1,5 +1,5 @@
 @with_kw struct Artist
-    id::Int = 0
+    id::UInt = 0
     name::String = ""
     anv::String = ""
     join::String = ""
@@ -9,11 +9,28 @@
 end
 
 
+@with_kw struct Contributor
+    username::String = ""
+    resource_url::String = ""
+end
+
+
+@with_kw struct Community
+    data_quality::String = ""
+    want::UInt = 0
+    rating
+    status::String = ""
+    have::UInt = 0
+    contributors::Vector{Contributor} = Contributor[]
+    submitter::Union{Contributor, Nothing} = nothing
+end
+
+
 @with_kw struct Company
-    id::Int = 0
+    id::UInt = 0
     name::String = ""
     catno::String = ""
-    entity_type::Int = 0
+    entity_type::UInt = 0
     entity_type_name::String = ""
     resource_url::String = ""
 end
@@ -37,14 +54,14 @@ end
     uri::String = ""
     uri150::String = ""
     resource_url::String = ""
-    height::Int = 0
-    width::Int = 0
+    height::UInt = 0
+    width::UInt = 0
     type::String = ""
 end
 
 
 @with_kw struct Label
-    id::Int = 0
+    id::UInt = 0
     name::String = ""
     resource_url::String = ""
     catno::String = ""
@@ -56,13 +73,13 @@ end
 @with_kw struct Track
     position::String = ""
     title::String = ""
-    duration::Int = 0
+    duration::UInt = 0
     type_::String = ""
 end
 
 
 @with_kw struct Video
-    duration::Int = 0
+    duration::UInt = 0
     uri::String = ""
     embed::Bool = false
     title::String = ""
@@ -71,7 +88,7 @@ end
 
 
 @with_kw struct Release
-    id::Union{Int, Nothing} = nothing
+    id::Union{UInt, Nothing} = nothing
     title::Union{String, Nothing} = nothing
     artists::Vector{Artist} = Artist[]
     artists_sort::Union{String, Nothing} = nothing
@@ -82,7 +99,7 @@ end
     country::Union{String, Nothing} = nothing
     date_added::Union{ZonedDateTime, Nothing} = nothing
     date_changed::Union{ZonedDateTime, Nothing} = nothing
-    estimated_weight::Union{Int, Nothing} = nothing
+    estimated_weight::Union{UInt, Nothing} = nothing
     extraartists::Vector{Artist} = Artist[]
     format_quantity::Union{Int64, Nothing} = nothing
     formats::Vector{Format} = Format[]
@@ -91,10 +108,10 @@ end
     images::Vector{Image} = Image[]
     labels::Vector{Label} = Label[]
     lowest_price::Union{Real, Nothing} = nothing
-    master_id::Union{Int, Nothing} = nothing
+    master_id::Union{UInt, Nothing} = nothing
     master_url::Union{String, Nothing} = nothing
     notes::Union{String, Nothing} = nothing
-    num_for_sale::Union{Int, Nothing} = nothing
+    num_for_sale::Union{UInt, Nothing} = nothing
     released::Union{String, Nothing} = nothing
     released_formatted::Union{String, Nothing} = nothing
     resource_url::Union{String, Nothing} = nothing
@@ -104,5 +121,5 @@ end
     tracklist::Vector{Track} = Track[]
     uri::Union{String, Nothing} = nothing
     videos::Vector{Video} = Video[]
-    year::Union{Int, Nothing} = nothing
+    year::Union{UInt, Nothing} = nothing
 end
