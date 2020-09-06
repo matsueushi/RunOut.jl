@@ -29,6 +29,7 @@ function construct(::Type{Release}, d::AbstractDict)
         :identifiers => Identifier,
         :images => Image,
         :labels => Label,
+        :series => Label,
         :tracklist => Track,
         :videos => Video,
         :date_added => ZonedDateTime,

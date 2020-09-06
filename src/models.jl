@@ -6,6 +6,7 @@
     tracks::Union{String, Nothing} = nothing 
     anv::Union{String, Nothing} = nothing
     join::Union{String, Nothing} = nothing
+    thumbnail_url::Union{String, Nothing} = nothing
 end
 
 
@@ -39,6 +40,7 @@ end
     entity_type::Union{String, Nothing} = nothing 
     entity_type_name::Union{String, Nothing} = nothing
     catno::Union{UInt, Nothing} = nothing
+    thumbnail_url::Union{String, Nothing} = nothing
 end
 
 
@@ -74,6 +76,7 @@ end
     catno::String = ""
     entity_type::String = ""
     entity_type_name::String = ""
+    thumbnail_url::Union{String, Nothing} = nothing
 end
 
 
@@ -124,7 +127,7 @@ end
     num_for_sale::Union{UInt, Nothing} = nothing
     released::Union{String, Nothing} = nothing
     released_formatted::Union{String, Nothing} = nothing
-    series::Union{Vector{String}, Nothing} = nothing 
+    series::Union{Vector{Label}, Nothing} = nothing 
     status::Union{String, Nothing} = nothing
     styles::Union{Vector{String}, Nothing} = nothing
     tracklist::Union{Vector{Track}} = nothing

@@ -3,10 +3,11 @@ module RunOut
 using HTTP
 using JSON
 using Parameters
-using Pkg
 using TimeZones
 
-export parse_dict, release, Release
+export Artist, Contributor, Rating, Community, Company
+export Identifier, Format, Image, Label, Track, Video, Release
+export Client, release
 
 include("models.jl")
 include("parse.jl")

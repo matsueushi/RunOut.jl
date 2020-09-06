@@ -1,7 +1,4 @@
-const USERAGENT = "RunOut/$(Pkg.project().version) +https://matsueushi.github.io"
 const BASEURL = "https://api.discogs.com/"
-
-HTTP.MessageRequest.setuseragent!(USERAGENT)
 
 
 struct HTTPError <: Exception
@@ -9,9 +6,21 @@ struct HTTPError <: Exception
 end
 
 
-function fetch(path::AbstractString)
+struct Client
+    useragent::String
+    usertoken::Union{String, Nothing}
+    Client(useragent; usertoken = nothing) = new(useragent, usertoken)
+end
+
+
+function fetch(c::Client, path::AbstractString)
     url = BASEURL * path
-    r = HTTP.get(url, status_exception=false)
+    headers = Dict("User-Agent" => c.useragent)
+    query = Dict()
+    if !isnothing(c.usertoken)
+        query["token"] = c.usertoken
+    end
+    r = HTTP.get(url, headers=headers, query=query, status_exception=false)
     if r.status == 200
         return JSON.parse(String(r.body))
     else
@@ -20,4 +29,4 @@ function fetch(path::AbstractString)
     end
 end
 
-release(releaseid) = parse_dict(Release, fetch("/releases/$releaseid"))
+release(c::Client, releaseid) = parse_dict(Release, fetch(c, "/releases/$releaseid"))
