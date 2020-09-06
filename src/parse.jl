@@ -46,4 +46,11 @@ function construct(::Type{Community}, d::AbstractDict)
     return construct(Community, d, mapping)
 end
 
+function construct(::Type{Track}, d::AbstractDict)
+    mapping = Dict(
+        :extraartists => Artist
+    )
+    return construct(Track, d, mapping)
+end
+
 parse_dict(T::Type, d::AbstractDict) = construct(T, key_to_symbol(d))

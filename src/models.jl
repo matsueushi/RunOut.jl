@@ -1,11 +1,11 @@
 @with_kw struct Artist
     id::UInt = 0
     name::String = ""
-    anv::String = ""
-    join::String = ""
     resource_url::String = ""
     role::Union{String, Nothing} = nothing
     tracks::Union{String, Nothing} = nothing 
+    anv::Union{String, Nothing} = nothing
+    join::Union{String, Nothing} = nothing
 end
 
 
@@ -35,17 +35,17 @@ end
 @with_kw struct Company
     id::UInt = 0
     name::String = ""
-    catno::String = ""
-    entity_type::UInt = 0
-    entity_type_name::String = ""
     resource_url::String = ""
+    entity_type::Union{String, Nothing} = nothing 
+    entity_type_name::Union{String, Nothing} = nothing
+    catno::Union{UInt, Nothing} = nothing
 end
 
 
 @with_kw struct Identifier
     value::String = ""
     type::String = ""
-    description::String = ""
+    description::Union{String, Nothing} = nothing
 end
 
 
@@ -53,13 +53,14 @@ end
     name::String = ""
     descriptions::Vector{String} = String[]
     qty::String = ""
+    text::Union{String, Nothing} = nothing
 end
 
 
 @with_kw struct Image
-    uri::String = ""
-    uri150::String = ""
-    resource_url::String = ""
+    uri::Union{String, Nothing} = nothing
+    uri150::Union{String, Nothing} = nothing
+    resource_url::Union{String, Nothing} = nothing
     height::UInt = 0
     width::UInt = 0
     type::String = ""
@@ -77,10 +78,11 @@ end
 
 
 @with_kw struct Track
-    position::String = ""
+    position::Union{String, Nothing} = nothing
     title::String = ""
-    duration::Union{UInt, Nothing} = nothing
     type_::String = ""
+    duration::Union{String, Nothing} = nothing
+    extraartists::Union{Vector{Artist}, Nothing} = nothing
 end
 
 
@@ -89,7 +91,7 @@ end
     uri::String = ""
     embed::Bool = false
     title::String = ""
-    description::String = ""
+    description::Union{String, Nothing} = nothing
 end
 
 

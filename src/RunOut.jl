@@ -6,9 +6,10 @@ using Parameters
 using Pkg
 using TimeZones
 
-export parse_dict, Release
+export parse_dict, release, Release
 
 include("models.jl")
 include("parse.jl")
+include("discogs.jl")
 
 end
