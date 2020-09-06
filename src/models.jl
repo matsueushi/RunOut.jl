@@ -4,8 +4,8 @@
     anv::String = ""
     join::String = ""
     resource_url::String = ""
-    role::String = ""
-    tracks::String = ""
+    role::Union{String, Nothing} = nothing
+    tracks::Union{String, Nothing} = nothing 
 end
 
 
@@ -15,14 +15,20 @@ end
 end
 
 
+@with_kw struct Rating
+    average::Real = 0.0
+    count::UInt = 0
+end
+
+
 @with_kw struct Community
     data_quality::String = ""
     want::UInt = 0
-    rating = nothing
+    rating::Union{Rating, Nothing} = nothing
     status::String = ""
     have::UInt = 0
-    contributors = nothing
-    submitter = nothing
+    contributors::Union{Vector{Contributor}, Nothing} = nothing
+    submitter::Union{Contributor, Nothing} = nothing
 end
 
 
@@ -73,7 +79,7 @@ end
 @with_kw struct Track
     position::String = ""
     title::String = ""
-    duration::UInt = 0
+    duration::Union{UInt, Nothing} = nothing
     type_::String = ""
 end
 

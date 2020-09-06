@@ -6,17 +6,19 @@ function key_to_symbol(d::AbstractDict)
 end
 key_to_symbol(v::AbstractVector) = key_to_symbol.(v)
 
-function construct(T::Type, d::AbstractDict; mapping::AbstractDict = Dict())
+construct(T::Type, d::AbstractDict) = T(;d...)
+construct(T::Type, v::AbstractVector) = construct.(T, v)
+function construct(T::Type, d::AbstractDict, mapping::AbstractDict)
     for (k, T) in pairs(mapping)
         haskey(d, k) || continue
         d[k] = construct(T, d[k])
     end
     return T(;d...)
 end
-construct(T::Type, v::AbstractVector) = construct.(T, v)
+
 construct(::Type{ZonedDateTime}, s::AbstractString) = ZonedDateTime(s, DATETIME_FORMAT)
 
-function parse_dict(::Type{Release}, d::AbstractDict)
+function construct(::Type{Release}, d::AbstractDict)
     mapping = Dict(
         :community => Community,
         :artists => Artist,
@@ -32,7 +34,16 @@ function parse_dict(::Type{Release}, d::AbstractDict)
         :date_added => ZonedDateTime,
         :date_changed => ZonedDateTime,
     )
-    return construct(Release, d; mapping)
+    return construct(Release, d, mapping)
 end
 
-apply_parse(T::Type, d::AbstractDict) = parse_dict(T, key_to_symbol(d))
+function construct(::Type{Community}, d::AbstractDict)
+    mapping = Dict(
+        :rating => Rating,
+        :contributors => Contributor,
+        :submitter => Contributor,
+    )
+    return construct(Community, d, mapping)
+end
+
+parse_dict(T::Type, d::AbstractDict) = construct(T, key_to_symbol(d))

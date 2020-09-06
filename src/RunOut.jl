@@ -9,6 +9,6 @@ using TimeZones
 export parse_dict, Release
 
 include("models.jl")
-include("utils.jl")
+include("parse.jl")
 
 end
