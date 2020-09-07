@@ -49,6 +49,7 @@ end
 
 function construct(::Type{Track}, d::AbstractDict)
     mapping = Dict(
+        :artists => Artist,
         :extraartists => Artist
     )
     return construct(Track, d, mapping)

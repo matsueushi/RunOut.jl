@@ -85,6 +85,7 @@ end
     title::String = ""
     type_::String = ""
     duration::Union{String, Nothing} = nothing
+    artists::Union{Vector{Artist}, Nothing} = nothing
     extraartists::Union{Vector{Artist}, Nothing} = nothing
 end
 

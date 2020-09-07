@@ -29,4 +29,4 @@ function fetch(c::Client, path::AbstractString)
     end
 end
 
-release(c::Client, releaseid) = parse_dict(Release, fetch(c, "/releases/$releaseid"))
+fetch_release(c::Client, releaseid) = parse_dict(Release, fetch(c, "/releases/$releaseid"))
