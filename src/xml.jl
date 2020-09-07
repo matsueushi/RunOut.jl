@@ -1,8 +1,8 @@
 function append_tag!(tags, kind, info)
     isnothing(info) && return
     tag = ElementNode("tag")
-    addelement!(tag, "name", kind)
-    addelement!(tag, "value", "$info")
+    link!(tag, AttributeNode("name", kind))
+    link!(tag, AttributeNode("value", "$info"))
     link!(tags, tag)
 end
 
