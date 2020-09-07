@@ -19,17 +19,17 @@ client = Client("ExapmleApp/0.1"; usertoken="*******user*token*******)
 https://www.discogs.com/New-Order-Power-Corruption-Lies-%E6%A8%A9%E5%8A%9B%E3%81%AE%E7%BE%8E%E5%AD%A6/release/1750385
 
 ```julia
-rl = fetch_release(client, 1750385)
+release = fetch_release(client, 1750385)
 ```
 
 ```shell
-julia> typeof(rl)
+julia> typeof(release)
 Release
 
 julia> fieldnames(Release)
 (:id, :title, :resource_url, :artists, :artists_sort, :data_quality, :thumb, :community, :companies, :country, :date_added, :date_changed, :estimated_weight, :extraartists, :format_quantity, :formats, :genres, :identifiers, :images, :labels, :lowest_price, :master_id, :master_url, :notes, :num_for_sale, :released, :released_formatted, :series, :status, :styles, :tracklist, :uri, :videos, :year)
 
-julia> rl.tracklist
+julia> release.tracklist
 8-element Array{Track,1}:
  Track("1", "Age Of Consent", "track", "5:13", nothing)
  Track("2", "We All Stand", "track", "5:13", nothing)
@@ -40,3 +40,11 @@ julia> rl.tracklist
  Track("7", "Ecstasy", "track", "4:24", nothing)
  Track("8", "Leave Me Alone", "track", "4:38", nothing)
  ```
+
+## Generate XML template for Audacity
+```julia
+julia>  xmls = generate_xml(release)
+2-element Array{Any,1}:
+ EzXML.Document(EzXML.Node(<DOCUMENT_NODE@0x0000000002e10750>))
+ EzXML.Document(EzXML.Node(<DOCUMENT_NODE@0x0000000002e10610>))
+```

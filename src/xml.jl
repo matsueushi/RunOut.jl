@@ -24,9 +24,17 @@ function generate_xml(release::Release)
             append_tag!(tags, "ARTIST", clean_artist_name(track.artists[1].name))
         end
         setroot!(doc, tags)
-        prettyprint(doc)
-        push!(docs, doc)
+        name = "$(track.position) - $(track.title)"
+        push!(docs, (name, doc))
     end
 
     return docs
+end
+
+function save_xml(release::Release, dir::AbstractString = "")
+    docs = generate_xml(release::Release)
+    for (name, doc) in docs
+        filename = replace(name, r"[/\:*?\"<>|]" => "") * ".xml"
+        write(joinpath(dir, filename), doc)
+    end
 end
