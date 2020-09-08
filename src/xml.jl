@@ -10,13 +10,15 @@ clean_artist_name(artist_name) = replace(artist_name, r" \(\d\)$" => "")
 
 function generate_xml(release::Release)
     docs = []
+    position = 1
     for track in release.tracklist
+        isnothing(track.position) && continue
         doc = XMLDocument()
         tags = ElementNode("tags")
         append_tag!(tags, "ALBUM", release.title)
         append_tag!(tags, "YEAR", release.year)
         append_tag!(tags, "TITLE", track.title)
-        append_tag!(tags, "TRACKNUMBER", track.position)
+        append_tag!(tags, "TRACKNUMBER", position)
         isnothing(release.genres) || append_tag!(tags, "GENRE", release.genres[1])
         if isnothing(track.artists)
             append_tag!(tags, "ARTIST", clean_artist_name(release.artists[1].name))
@@ -24,8 +26,9 @@ function generate_xml(release::Release)
             append_tag!(tags, "ARTIST", clean_artist_name(track.artists[1].name))
         end
         setroot!(doc, tags)
-        name = "$(track.position) - $(track.title)"
+        name = "$(position) - $(track.title)"
         push!(docs, (name, doc))
+        position += 1
     end
 
     return docs
