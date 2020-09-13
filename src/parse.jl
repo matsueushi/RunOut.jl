@@ -6,20 +6,20 @@ function key_to_symbol(d::AbstractDict)
 end
 key_to_symbol(v::AbstractVector) = key_to_symbol.(v)
 
-construct(T::Type, d::AbstractDict) = T(;d...)
-construct(T::Type, v::AbstractVector) = construct.(T, v)
-function construct(T::Type, d::AbstractDict, mapping::AbstractDict)
-    for (k, T) in pairs(mapping)
+mapping(T::Type, d::AbstractDict) = T(;d...)
+mapping(T::Type, v::AbstractVector) = mapping.(T, v)
+function mapping(T::Type, d::AbstractDict, transformation::AbstractDict)
+    for (k, v) in pairs(transformation)
         haskey(d, k) || continue
-        d[k] = construct(T, d[k])
+        d[k] = mapping(v, d[k])
     end
     return T(;d...)
 end
 
-construct(::Type{ZonedDateTime}, s::AbstractString) = ZonedDateTime(s, DATETIME_FORMAT)
+mapping(::Type{ZonedDateTime}, s::AbstractString) = ZonedDateTime(s, DATETIME_FORMAT)
 
-function construct(::Type{Release}, d::AbstractDict)
-    mapping = Dict(
+function mapping(::Type{Release}, d::AbstractDict)
+    transformation = Dict(
         :community => Community,
         :artists => TrackArtist,
         :companies => Company,
@@ -35,24 +35,24 @@ function construct(::Type{Release}, d::AbstractDict)
         :date_added => ZonedDateTime,
         :date_changed => ZonedDateTime,
     )
-    return construct(Release, d, mapping)
+    return mapping(Release, d, transformation)
 end
 
-function construct(::Type{Community}, d::AbstractDict)
-    mapping = Dict(
+function mapping(::Type{Community}, d::AbstractDict)
+    transformation = Dict(
         :rating => Rating,
         :contributors => Contributor,
         :submitter => Contributor,
     )
-    return construct(Community, d, mapping)
+    return mapping(Community, d, transformation)
 end
 
-function construct(::Type{Track}, d::AbstractDict)
-    mapping = Dict(
+function mapping(::Type{Track}, d::AbstractDict)
+    transformation = Dict(
         :artists => TrackArtist,
         :extraartists => TrackArtist
     )
-    return construct(Track, d, mapping)
+    return mapping(Track, d, transformation)
 end
 
-parse_dict(T::Type, d::AbstractDict) = construct(T, key_to_symbol(d))
+parse_dict(T::Type, d::AbstractDict) = mapping(T, key_to_symbol(d))
