@@ -21,10 +21,10 @@ construct(::Type{ZonedDateTime}, s::AbstractString) = ZonedDateTime(s, DATETIME_
 function construct(::Type{Release}, d::AbstractDict)
     mapping = Dict(
         :community => Community,
-        :artists => Artist,
+        :artists => TrackArtist,
         :companies => Company,
         :contributors => Contributor,
-        :extraartists => Artist,
+        :extraartists => TrackArtist,
         :formats => Format,
         :identifiers => Identifier,
         :images => Image,
@@ -49,8 +49,8 @@ end
 
 function construct(::Type{Track}, d::AbstractDict)
     mapping = Dict(
-        :artists => Artist,
-        :extraartists => Artist
+        :artists => TrackArtist,
+        :extraartists => TrackArtist
     )
     return construct(Track, d, mapping)
 end

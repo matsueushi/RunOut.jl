@@ -6,7 +6,7 @@ using JSON
 using Parameters
 using TimeZones
 
-export Artist, Contributor, Rating, Community, Company
+export TrackArtist, Contributor, Rating, Community, Company
 export Identifier, Format, Image, Label, Track, Video, Release
 export Client, fetch_release
 export generate_xml, save_xml

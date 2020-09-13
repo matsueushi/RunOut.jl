@@ -1,4 +1,4 @@
-@with_kw struct Artist
+@with_kw struct TrackArtist
     id::UInt = 0
     name::String = ""
     resource_url::String = ""
@@ -85,8 +85,8 @@ end
     title::String = ""
     type_::String = ""
     duration::Union{String, Nothing} = nothing
-    artists::Union{Vector{Artist}, Nothing} = nothing
-    extraartists::Union{Vector{Artist}, Nothing} = nothing
+    artists::Union{Vector{TrackArtist}, Nothing} = nothing
+    extraartists::Union{Vector{TrackArtist}, Nothing} = nothing
 end
 
 
@@ -104,7 +104,7 @@ end
     title::String = ""
     resource_url::String = ""
 
-    artists::Union{Vector{Artist}, Nothing} = nothing
+    artists::Union{Vector{TrackArtist}, Nothing} = nothing
     artists_sort::Union{String, Nothing} = nothing
     data_quality::Union{String, Nothing} = nothing
     thumb::Union{String, Nothing} = nothing
@@ -114,7 +114,7 @@ end
     date_added::Union{ZonedDateTime, Nothing} = nothing
     date_changed::Union{ZonedDateTime, Nothing} = nothing
     estimated_weight::Union{UInt, Nothing} = nothing
-    extraartists::Union{Vector{Artist}, Nothing} = nothing
+    extraartists::Union{Vector{TrackArtist}, Nothing} = nothing
     format_quantity::Union{Int64, Nothing} = nothing
     formats::Union{Vector{Format}, Nothing} = nothing
     genres::Union{Vector{String}, Nothing} = nothing
