@@ -99,6 +99,33 @@ end
 end
 
 
+@with_kw struct Member
+    id::UInt = 0
+    name::String = ""
+    resource_url::String = ""
+    thumbnail_url::Union{String, Nothing} = nothing
+    active::Union{Bool, Nothing} = nothing
+end
+
+
+@with_kw struct Artist
+    id::UInt = 0
+    name::String = ""
+    resource_url::String = ""
+    uri::String = ""
+    releases_url::String = ""
+    
+    aliases::Union{Vector{Member}, Nothing} = nothing
+    namevariations::Union{Vector{String}, Nothing} = nothing
+    realname::Union{String, Nothing} = nothing
+    urls::Union{Vector{String}, Nothing} = nothing
+    data_quality::Union{String, Nothing} = nothing
+    images::Union{Vector{Image}, Nothing} = nothing
+    members::Union{Vector{Member}, Nothing} = nothing
+    profile::Union{String, Nothing} = nothing
+end
+
+
 @with_kw struct Release
     id::UInt = 0
     title::String = ""

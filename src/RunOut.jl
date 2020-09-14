@@ -8,7 +8,7 @@ using TimeZones
 
 export TrackArtist, Contributor, Rating, Community, Company
 export Identifier, Format, Image, Label, Track, Video, Release
-export Client, fetch_release
+export Client, fetch_release, fetch_artist
 export generate_xml, save_xml
 
 include("models.jl")
